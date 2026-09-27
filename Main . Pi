@@ -15,3 +15,6 @@ correlation = correlate(target_data, ref_data, mode='full')
 lag = np.argmax(correlation) - len(ref_data) + 1
 return lag
 
+
+if __name__ == "__main__":
+    lag = 
