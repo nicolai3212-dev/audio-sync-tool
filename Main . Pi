@@ -1,0 +1,17 @@
+Hier ist der Python-Code für die Audiosynchronisation: ```python
+import numpy as np
+import scipy.io.wavfile as wav
+from scipy.signal import correlate
+def sync_audio(ref_file, target_file):
+sr_ref, ref_data = wav.read(ref_file)
+sr_target, target_data = wav.read(target_file)
+if sr_ref != sr_target:
+raise ValueError("Sample rates do not match.")
+if len(ref_data.shape) > 1:
+ref_data = ref_data.mean(axis=1)
+if len(target_data.shape) > 1:
+target_data = target_data.mean(axis=1)
+correlation = correlate(target_data, ref_data, mode='full')
+lag = np.argmax(correlation) - len(ref_data) + 1
+return lag
+
